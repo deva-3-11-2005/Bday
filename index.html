@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Deepika - A Journey of Love</title>
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Section Styles -->
+    <link rel="stylesheet" href="css/lifetime.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/envelope.css">
+    <link rel="stylesheet" href="css/gifts.css?v=2.1">
+    <link rel="stylesheet" href="css/final.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+</head>
+
+<body>
+
+    <!-- Background Petals Container -->
+    <div id="petals-container"></div>
+
+    <!-- Floating Cursor Image -->
+    <div id="cursor-image-container">
+        <img id="cursor-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Preview">
+    </div>
+
+    <!-- Page Transition Overlay -->
+    <div id="page-transition">
+        <div class="heart-loader"></div>
+        <p id="transition-text">Filling with love...</p>
+    </div>
+
+    <div id="main-container">
+
+        <!-- Hero Section (Page 1 - Home) -->
+        <section id="hero" class="page-section active">
+            <div class="hero-content">
+                <div class="glass-heart">
+                    <svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+                        c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" fill="var(--heart-red)" />
+                    </svg>
+                </div>
+                <h1 class="elegant-text">Happy 20th Birthday</h1>
+                <h2 class="elegant-subtext">Deepika</h2>
+                <p>My love, my everything.</p>
+
+                <div class="hero-buttons">
+                    <button class="next-btn" data-target="loveletter" data-text="Opening a special wish...">1.
+                        Wish</button>
+                    <button class="next-btn" data-target="timeline" data-text="Reminiscing our story...">2. Begin
+                        Journey</button>
+                    <button class="next-btn" data-target="surprise" data-text="Unwrapping your gifts...">3. Surprise
+                        Gifts</button>
+                </div>
+            </div>
+
+            <!-- Secret Gift Reveal -->
+            <div id="secret-gift-overlay" class="hidden-secret">
+                <div class="secret-card">
+                    <div class="secret-ribbon">SECRET GIFT</div>
+                    <h3>Infinite Love Coupon 💝</h3>
+                    <p>This coupon entitles you to infinite hugs, kisses, and happiness from me, forever.</p>
+                    <div class="secret-validity">Valid: Forever & Always</div>
+                    <button class="close-secret-btn" onclick="hideSecretGift()">Close ❤️</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secret Love Letter Section (Wish) -->
+        <section id="loveletter" class="page-section">
+            <h2 class="section-title" id="letter-title">A Secret For You</h2>
+            <p id="letter-subtitle">Click the envelope to open</p>
+
+            <div class="envelope-wrapper">
+                <div id="envelope">
+                    <div class="front flap"></div>
+                    <div class="front pocket"></div>
+                    <div class="letter" id="the-letter">
+                        <div class="letter-face letter-front">
+                            <div class="flip-badge">Flip Me! ❤️</div>
+                            <p class="clear-text greeting">Heyy Deepi,</p>
+
+                            <p class="clear-text body">Inaiku unoda bday! 1st na athuku wish pannikuren, Happy Birthday
+                                Deepika. Today unoda special day va irukanum aasa paduren. Romba yosikatha, no plans,
+                                just a normal day tha, but with me... unoda bf kuda. Namba senthu celebrate pannura 3rd
+                                bday va irukanum, but last time konjam miss aiduchi. But intha time, naa tha most
+                                important person of ur life ha iruken.</p>
+
+                            <p class="clear-text body">Nejama solluren di, naa romba lucky ha iruken nee kadaichathuku.
+                                You are my lucky charm. Inaiku unaku ennala thonutho sei, na kuda vey un kai pudichi
+                                kupitu poren. Life la naraya happiness, sadness pathuta, thaniya romba aluthuta. Inimey
+                                unaku antha kastam la varama unkuda irunthu safe ha pathukuren. Unga amma vaithula epadi
+                                la silent ha avanga unna safe ha pathu unna raasichitu happya unna pathamgalo, atha vida
+                                athigama na unna rasichitu, happya unna sirika vechitey pathukuren.</p>
+
+                            <p class="clear-text body">Inaila irunthu unoda ela sogamum thuki potutu vaa, na pathukuren.
+                                Unaku thaniya iruka thana romba pudikum? But sorry, atha enala thara mudiyathu. Vennum
+                                na unkuda silent ha un pakathula iruken, aana thalli thurama iruka maten.</p>
+
+                            <p class="flip-hint">(Click to turn page ⤵)</p>
+                        </div>
+
+                        <div class="letter-face letter-back">
+                            <p class="clear-text body">2 bday unoda frnd ha na unkuda irunthen, and ippo namba lovers...
+                                unoda bf ha inaiku unoda bday ku unkuda iruken. Nee epadi feel pannura theriyala, enaku
+                                lite ha pathatama bayam ma iruku unna ethavathu hurt panniduva na nu. But easy ha vitu
+                                kuda maten. I try my best to make u smile and be mine. Nee enoda sontham, enoda sothu...
+                                vitura maten.</p>
+
+                            <p class="clear-text body">Inaiku exam vera iruku. Padichitu va, or nee va na solli tharen!
+                                Happya day poga enoda aasa wishes. And once again wish you a many more happy birthday my
+                                laddu! Happya nee epavum mey sirichitey iruka enoda best wishes. Epavum na unkuda tha
+                                irupen.</p>
+
+                            <p class="clear-text signature">Love you dii eruma,<br>by<br>Ur man</p>
+
+                            <p class="flip-hint">(Click to turn page ⤴)</p>
+                        </div>
+                    </div>
+                    <div class="heart-seal">❤</div>
+                </div>
+            </div>
+
+            <button class="next-btn bottom-btn" data-target="hero" data-text="Returning home...">Back</button>
+        </section>
+
+        <!-- 20 Years of Lifetime Section (Journey Step 1) -->
+        <section id="timeline" class="page-section">
+            <button class="back-corner-btn" data-target="hero" data-text="Returning home...">Back</button>
+            <h2 class="section-title">20 Beautiful Years</h2>
+            <div class="lifetime-container">
+                <div class="timeline-line"></div>
+                <!-- Content generated dynamically from js/data.js -->
+            </div>
+            <button class="next-btn" style="margin-bottom: 50px;" data-target="gallery" data-text="Opening our photo album...">View Memories</button>
+        </section>
+
+        <!-- Romantic Gallery Section -->
+        <section id="gallery" class="page-section">
+            <h2 class="section-title">Beautiful Moments</h2>
+            <div id="gallery-container" class="gallery-container">
+                <!-- Memories generated dynamically from js/data.js -->
+            </div>
+            <button class="next-btn bottom-btn" data-target="hero" data-text="Returning home...">Back</button>
+        </section>
+
+        <!-- Surprise Gifts Section -->
+        <section id="surprise" class="page-section">
+            <h2 class="section-title">Surprise Gifts</h2>
+            <p style="text-align:center; color: var(--text-dark); margin-bottom: 50px; font-size: 1.2rem;">Pick a gift
+                to see your surprise coupon!</p>
+
+            <div class="gifts-container">
+                <div class="gift-box-realistic" onclick="openGift(this, 'puzzle')">
+                    <div class="gift-shadow"></div>
+                    <div class="gift-bottom">
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                    </div>
+                    <div class="gift-lid">
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                        <div class="gift-bow">
+                            <div class="bow-left"></div>
+                            <div class="bow-right"></div>
+                            <div class="bow-center"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gift-box-realistic" onclick="openGift(this, 'jar')">
+                    <div class="gift-shadow"></div>
+                    <div class="gift-bottom">
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                    </div>
+                    <div class="gift-lid">
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                        <div class="gift-bow">
+                            <div class="bow-left"></div>
+                            <div class="bow-right"></div>
+                            <div class="bow-center"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gift 3: Red Box for Quiz -->
+                <div class="gift-box-realistic" onclick="openGift(this, 'quiz')">
+                    <div class="gift-shadow"></div>
+                    <div class="gift-bottom" style="background: linear-gradient(to right, #ff3366, #ff0000);">
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                    </div>
+                    <div class="gift-lid" style="background: linear-gradient(to right, #ff3366, #ff0000);">
+                        <div class="gift-ribbon-v"></div>
+                        <div class="gift-ribbon-h"></div>
+                        <div class="gift-bow">
+                            <div class="bow-left"></div>
+                            <div class="bow-right"></div>
+                            <div class="bow-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="next-btn bottom-btn" data-target="hero" data-text="Returning home...">Back</button>
+        </section>
+
+        <!-- Gift 1: 5x5 Puzzle -->
+        <section id="gift-puzzle" class="page-section">
+            <button class="back-corner-btn" data-target="surprise" data-text="Going back...">Back</button>
+            <h2 class="section-title">Solve to Reveal</h2>
+            <div class="puzzle-container">
+                <div id="puzzle-board" class="puzzle-board"></div>
+                <button class="auto-solve-btn" onclick="autoSolvePuzzle()">Auto Solve ✨</button>
+            </div>
+
+            <div id="puzzle-gift" class="hidden">
+                <div class="surprise-reveal">
+                    <h3>You Solved It! 💖</h3>
+                    <div class="solved-image-container">
+                        <img id="solved-puzzle-img" src="" alt="Solved Puzzle">
+                    </div>
+                    <p id="puzzle-countdown-msg">Get ready for your final surprise in <span id="puzzle-timer">5</span> seconds...</p>
+                    <div class="progress-bar-container">
+                        <div id="puzzle-progress" class="progress-bar"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </section>
+
+        <section id="gift-jar" class="page-section">
+            <button class="back-corner-btn" data-target="surprise" data-text="Going back...">Back</button>
+            <h2 class="section-title">Jar of Love</h2>
+            <div class="jar-container">
+                <div class="jar" onclick="pullReason()">
+                    <div class="jar-lid-style">
+                        <div class="lid-knob"></div>
+                    </div>
+                    <div class="jar-body-style">
+                        <div class="jar-rope"></div>
+                        <div class="jar-rope-bow"></div>
+                        <div class="jar-papers">
+                            <div class="paper-roll"></div>
+                            <div class="paper-roll"></div>
+                            <div class="paper-roll"></div>
+                            <div class="paper-roll"></div>
+                            <div class="paper-roll"></div>
+                        </div>
+                        <div class="jar-label">Open Me ✨</div>
+                    </div>
+                </div>
+                <!-- The Scroll Paper -->
+                <div id="reason-display" class="reason-card hidden scroll-paper">
+                    <div class="scroll-top"></div>
+                    <div class="scroll-content">
+                        <p id="reason-text"></p>
+                    </div>
+                    <div class="scroll-bottom"></div>
+                    <button class="next-btn pull-another-btn" onclick="closeReason()">Another Paper! ❤️</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Final Surprise -->
+        <section id="final-surprise" class="page-section">
+            <button class="back-corner-btn" data-target="hero" data-text="Back home...">Back</button>
+            <div class="final-container">
+
+                <div class="slideshow-wrapper">
+                    <div id="final-slideshow" class="final-slideshow">
+                        <!-- Slideshow images will be injected here -->
+                    </div>
+                    <div class="slideshow-overlay">
+                        <div class="slideshow-info">
+                            <span id="slideshow-year">2006</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="final-letter">
+                    <h3 class="elegant-text">To My Dearest Deepika...</h3>
+                    <p id="final-letter-text">Happy 20th Birthday! These 20 years have been a beautiful journey, and I'm so lucky to be a part of your life now. From the angel born in 2006 to the incredible woman you are today, every moment is a treasure. I love you more than words can say. ❤️</p>
+                </div>
+            </div>
+        </section>
+
+
+
+
+    </div>
+    
+    <!-- Full-Size Image Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Full Size">
+    </div>
+
+    <!-- Modular Scripts -->
+    <script src="js/data.js" defer></script>
+    <script src="js/lifetime.js" defer></script>
+    <script src="js/gallery.js" defer></script>
+    <script src="js/envelope.js" defer></script>
+    <script src="js/puzzle.js" defer></script>
+    <script src="js/jar.js" defer></script>
+    <script src="js/final.js" defer></script>
+    <script src="js/quiz.js" defer></script>
+    <script src="js/gifts.js" defer></script>
+
+    <script src="js/main.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepika's Love Quiz ❤️</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <style>
+        :root {
+            --primary: #ff3366;
+            --bg: #ffeef2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-paper {
+            background: rgba(255, 255, 255, 0.85);
+            /* Pure White Frosted Glass */
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            width: 900px;
+            height: 800px;
+            clip-path: path('M450 780 C200 650 -100 400 100 120 C200 20 400 60 450 180 C500 60 700 20 800 120 C1000 400 700 650 450 780');
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 180px 100px 100px 100px;
+            text-align: center;
+            box-shadow: 0 40px 120px rgba(255, 51, 102, 0.3), 0 10px 40px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 5px solid #ff3366;
+            /* BOLD RED OUTLINE */
+            transform: scale(1);
+            overflow: hidden;
+        }
+
+        /* The Pumping Red Fill */
+        .heart-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #ff3366, #ff0000);
+            transform: translateY(100%);
+            /* Start at bottom */
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Pure White Glossy Highlight */
+        .heart-paper::after {
+            content: '';
+            position: absolute;
+            top: 5%;
+            left: 15%;
+            width: 40%;
+            height: 25%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), transparent);
+            border-radius: 50% 50% 30% 30%;
+            transform: rotate(-30deg);
+            pointer-events: none;
+            filter: blur(15px);
+            z-index: 5;
+        }
+
+        /* Soft Red Aura Glow */
+        .heart-paper::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            background: rgba(255, 51, 102, 0.4);
+            /* Soft Red/Pink Glow */
+            filter: blur(25px);
+            z-index: -1;
+            clip-path: path('M450 780 C200 650 -100 400 100 120 C200 20 400 60 450 180 C500 60 700 20 800 120 C1000 400 700 650 450 780');
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.2rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            z-index: 2;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        #question-text {
+            font-size: 2.4rem;
+            /* High-impact text */
+            font-weight: 900;
+            color: #1a1a1a;
+            margin-bottom: 40px;
+            max-width: 90%;
+            line-height: 1.2;
+            z-index: 2;
+        }
+
+        /* SMART DYNAMIC GRID */
+        .options-grid {
+            display: grid;
+            /* Automatically picks 2 or 3 columns based on space */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid var(--primary);
+            padding: 20px 30px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            /* Large, readable choices */
+            font-weight: 900;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.08) translateY(-8px);
+            box-shadow: 0 25px 50px rgba(255, 51, 102, 0.4);
+        }
+
+        .score-display {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 900px) {
+            .heart-paper {
+                width: 650px;
+                height: 550px;
+                padding: 130px 40px 60px 40px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            #question-text {
+                font-size: 1.2rem;
+            }
+
+            .option-btn {
+                font-size: 1rem;
+                min-height: 60px;
+                min-width: 150px;
+            }
+
+            .heart-paper,
+            .heart-paper::before {
+                clip-path: path('M325 500 C175 400 -20 250 80 100 C150 0 275 50 325 130 C375 50 500 0 570 100 C670 250 525 400 325 500');
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="petals"></div>
+
+    <div class="heart-wrapper">
+        <div id="quiz-start" class="heart-paper">
+            <h1>Quiz Time! ❤️</h1>
+            <p style="font-weight: 900; margin-bottom: 5px;">Are you ready?</p>
+            <p style="color: var(--primary); font-weight: 900; margin-bottom: 25px; font-size: 1.1rem;">✨ Score 5/5 for
+                a special surprise hint! ✨</p>
+            <button class="option-btn" onclick="startQuiz()"
+                style="background: var(--primary); color: white; width: 180px;">Start ✨</button>
+        </div>
+
+        <div id="quiz-box" class="heart-paper hidden">
+            <div class="heart-fill"></div>
+            <h2 id="question-text">Loading...</h2>
+            <div id="options" class="options-grid"></div>
+        </div>
+
+        <div id="quiz-result" class="heart-paper hidden">
+            <h1>Amazing! ❤️</h1>
+            <div class="score-display" id="score">0</div>
+            <p style="font-weight: 900; margin: 10px 0;">Happy Birthday Deepika!</p>
+            <p id="hint-text"
+                style="color: var(--primary); font-weight: 900; margin-bottom: 20px; font-size: 1.1rem; max-width: 80%;">
+            </p>
+            <button class="option-btn" onclick="window.location.href='index.html'"
+                style="background: var(--primary); color: white; width: 180px;">Finish 🎁</button>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script>
+        const SUPABASE_URL = 'https://wuxnckhakampnwvnnkbl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1eG5ja2hha2FtcG53dm5ua2JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzc4NDksImV4cCI6MjA5MzgxMzg0OX0.GqIuUK8aaAjaVFRvb9KMfuHAh3zPlQfOxd7LsDzhjnE';
+
+        let supabaseClient = null;
+        if (typeof supabase !== 'undefined') {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
+        let idx = 0;
+        let score = 0;
+        let userAnswers = []; // Track all chosen answers
+
+        function startQuiz() {
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-box').classList.remove('hidden');
+            showQ();
+        }
+
+        function showQ() {
+            const q = QUIZ_DATA[idx];
+            document.getElementById('question-text').innerText = q.question;
+            const optCont = document.getElementById('options');
+            optCont.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    const isCorrect = i === q.answer;
+                    const fill = document.querySelector('#quiz-box .heart-fill');
+                    const heart = document.getElementById('quiz-box');
+
+                    // Record the answer
+                    userAnswers.push({ question: q.question, selected: opt, correct: isCorrect });
+
+                    if (isCorrect) {
+                        score++;
+                        gsap.to(fill, { opacity: 1, y: '0%', duration: 0.6, ease: "power2.out" });
+                        gsap.to(heart, { scale: 1.1, duration: 0.3, delay: 0.4, repeat: 1, yoyo: true });
+                    } else {
+                        gsap.to(heart, { x: 10, duration: 0.1, repeat: 5, yoyo: true });
+                    }
+
+                    setTimeout(() => {
+                        gsap.set(fill, { opacity: 0, y: '100%' });
+                        gsap.set(heart, { scale: 1, x: 0 });
+
+                        idx++;
+                        if (idx < QUIZ_DATA.length) showQ();
+                        else showFinal();
+                    }, isCorrect ? 1000 : 500);
+                };
+                optCont.appendChild(btn);
+            });
+        }
+
+        function showFinal() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('score').innerText = score;
+
+            // SHOW SECRET HINT IF SCORE IS 5
+            if (score === QUIZ_DATA.length) {
+                document.getElementById('hint-text').innerText = "🤫 Secret Hint: A hidden heart is waiting for you on the home page... go find it! tap it 3 times😉❤️";
+            } else {
+                document.getElementById('hint-text').innerText = "So close! Try again for the secret hint! ✨";
+            }
+
+            save();
+        }
+
+        async function save() {
+            const data = {
+                user_name: "Deepika",
+                score: score,
+                total: QUIZ_DATA.length,
+                answers: userAnswers // Storing all choices
+            };
+            if (supabaseClient) {
+                const { error } = await supabaseClient.from('quiz_results').insert([data]);
+                if (error) console.error("Supabase Error:", error);
+            }
+        }
+
+        function createPetal() {
+            const p = document.createElement('div');
+            p.innerHTML = '❤️';
+            p.style.position = 'fixed'; p.style.top = '-20px';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = '20px'; p.style.opacity = '0.6';
+            document.getElementById('petals').appendChild(p);
+            gsap.to(p, { y: window.innerHeight + 100, x: '+=' + (Math.random() * 100 - 50), duration: 5, onComplete: () => p.remove() });
+        }
+        setInterval(createPetal, 300);
+    </script>
+</body>
+
+</html>
