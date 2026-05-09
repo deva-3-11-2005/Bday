@@ -1,0 +1,189 @@
+/* Secret Love Letter */
+.envelope-wrapper {
+  perspective: 1000px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#envelope {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: #e0a3b2;
+  border-radius: 5px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  transition: transform 0.5s;
+}
+
+#envelope.open {
+  transform: translateY(50px);
+}
+
+.front {
+  position: absolute;
+  width: 0; height: 0;
+  z-index: 3;
+}
+
+.flap {
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 100px solid #d495a4;
+  transform-origin: top;
+  transition: transform 0.5s 0.5s; /* Delay opening */
+}
+
+.pocket {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 150px solid #e5b2bf;
+  border-right: 150px solid #e5b2bf;
+  border-bottom: 100px solid #edc2cc;
+  border-top: 100px solid transparent;
+  z-index: 4;
+}
+
+#envelope::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #edc2cc;
+  z-index: 3;
+}
+
+.heart-seal {
+  position: absolute;
+  top: 80px; left: 50%;
+  transform: translateX(-50%);
+  color: var(--primary-color);
+  font-size: 24px;
+  z-index: 6; /* On top of everything */
+  transition: opacity 0.3s;
+}
+
+#envelope.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+#envelope.open .heart-seal {
+  opacity: 0;
+}
+
+.letter {
+  position: absolute;
+  width: 280px;
+  height: auto;
+  top: 50px; /* Start lower */
+  left: 10px;
+  z-index: 2;
+  opacity: 0; /* Hide initially */
+  transition: transform 0.8s 1s, width 0.8s 1s, left 0.8s 1s, opacity 0.3s 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+#envelope.open .letter {
+  transform: translateY(-300px) rotateX(10deg);
+  width: 550px;
+  left: -125px;
+  z-index: 5;
+  opacity: 1;
+}
+
+#envelope.open .letter.flipped {
+  transform: translateY(-280px) rotateX(10deg) rotateY(180deg);
+}
+
+.flip-badge {
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  background: var(--heart-red);
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 50% 50% 50% 0; /* Elegant teardrop shape */
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  font-weight: bold;
+  box-shadow: 0 10px 25px rgba(255, 51, 102, 0.5);
+  z-index: 100;
+  opacity: 0;
+  transform: scale(0) rotate(-15deg);
+  transition: all 0.6s 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#envelope.open .flip-badge {
+  opacity: 1;
+  transform: scale(1) rotate(-10deg);
+  animation: badge-pulse 2s infinite ease-in-out 2.6s, badge-glow 2s infinite alternate 2.6s;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1) rotate(-10deg); }
+  50% { transform: scale(1.1) rotate(-5deg); }
+}
+
+@keyframes badge-glow {
+  from { box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4); }
+  to { box-shadow: 0 10px 35px rgba(255, 51, 102, 0.8); }
+}
+
+.letter-face {
+  background-color: #fcf5e5;
+  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+  width: 100%;
+  max-height: 180px;
+  position: absolute;
+  top: 0; left: 0;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: 1px solid #e0d0b0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  transition: max-height 0.8s 1s, box-shadow 0.8s 1s;
+}
+
+.letter-back {
+  transform: rotateY(180deg);
+}
+
+#envelope.open .letter-face {
+  max-height: 700px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.clear-text { font-family: 'Lato', sans-serif; color: #4a3f35; }
+.letter-face .greeting { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--primary-color); }
+.letter-face .body { font-size: 0.95rem; line-height: 1.4; margin-bottom: 12px; text-align: justify; }
+.letter-face .signature { font-size: 1.1rem; font-weight: bold; text-align: right; color: var(--primary-color); margin-top: 15px; }
+
+.flip-hint {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 10px;
+  font-style: italic;
+  font-family: 'Lato', sans-serif;
+}
+
+@media (max-width: 768px) {
+  #envelope.open .letter {
+    width: 90vw;
+    left: calc(50% - 45vw - 125px); /* Adjusted for the wrapper positioning */
+    transform: translateY(-250px) rotateX(5deg);
+  }
+  #envelope.open .letter.flipped {
+    transform: translateY(-250px) rotateX(5deg) rotateY(180deg);
+  }
+}

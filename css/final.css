@@ -1,0 +1,224 @@
+/* College Polaroid Collage Styles */
+#final-surprise {
+    background: #0f0f0f;
+    background-image: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.final-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slideshow-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.final-slideshow {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Individual Polaroid Slide */
+.slide-container {
+    position: absolute;
+    width: 320px; /* Fixed "best" size for polaroids */
+    padding: 12px 12px 50px 12px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1.2s ease;
+    z-index: 1;
+}
+
+.slide-container.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* When a slide is "old" but still in the collage */
+.slide-container.old {
+    opacity: 0.7;
+    z-index: 1;
+    filter: brightness(0.8);
+}
+
+.slide-container img {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: contain;
+    display: block;
+    background: #f0f0f0; 
+}
+
+/* Polaroid Year Text */
+.polaroid-caption {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+/* Decorative Tape Effect */
+.slide-container::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-5deg);
+    width: 100px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 11;
+}
+
+/* Slideshow Year Large Display */
+.slideshow-overlay {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.slideshow-info {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.05); /* Ghostly background year */
+    line-height: 1;
+}
+
+/* Floating Letter Overlay */
+.final-letter {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    max-width: 320px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    z-index: 200;
+}
+
+.final-letter h3 {
+    margin-bottom: 12px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--primary-pink);
+}
+
+.back-corner-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--heart-red);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  clip-path: path('M40 70 C20 55 -5 35 10 12 C18 2 35 7 40 18 C45 7 62 2 70 12 C85 35 60 55 40 70');
+  z-index: 10000;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding-bottom: 5px;
+}
+
+.back-corner-btn:hover {
+    background: var(--heart-red);
+    transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slide-container {
+        width: 260px;
+    }
+    .slide-container img {
+        height: auto;
+        max-height: 280px;
+    }
+    .slideshow-info {
+        font-size: 3rem;
+    }
+    .final-letter {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+}
+
+/* Solved Puzzle Image Sizing */
+.solved-image-container {
+    width: 220px;
+    min-height: 220px;
+    margin: 15px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.solved-image-container img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    background: #f0f0f0;
+}
+
+.progress-bar-container {
+    width: 180px;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    margin: 15px auto;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #ff3366;
+    width: 0%;
+    transition: width 1s linear;
+}
+
